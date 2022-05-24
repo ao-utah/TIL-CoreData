@@ -23,6 +23,7 @@
 		D999D902283CB0BF00CE4D20 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D999D904283CB0BF00CE4D20 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		D999D907283CB0BF00CE4D20 /* TIL_CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TIL_CoreData.xcdatamodel; sourceTree = "<group>"; };
+		D999D90E283CB10200CE4D20 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +56,7 @@
 		D999D8FA283CB0BD00CE4D20 /* TIL-CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				D999D90E283CB10200CE4D20 /* README.md */,
 				D999D8FB283CB0BD00CE4D20 /* TIL_CoreDataApp.swift */,
 				D999D8FD283CB0BD00CE4D20 /* ContentView.swift */,
 				D999D8FF283CB0BF00CE4D20 /* Assets.xcassets */,
