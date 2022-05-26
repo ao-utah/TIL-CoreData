@@ -8,11 +8,17 @@
 import CoreData
 
 struct PersistenceController {
+    
+    // 本番用 (実機、シュミレータ)
     static let shared = PersistenceController()
 
+    // プレビュー用
     static var preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
+        let result = PersistenceController(inMemory: true)  // inmemory=trueにすることで、メモリ上にだけ保持される。
         let viewContext = result.container.viewContext
+        
+        // プレビュー用のCoreDataのデータ生成
+        // （メモリ上に保持されるので、プレビューが消えると破棄される）
         for _ in 0..<10 {
             let newItem = Item(context: viewContext)
             newItem.timestamp = Date()
@@ -28,13 +34,25 @@ struct PersistenceController {
         return result
     }()
 
+    // NSPersistentContainerの定義
     let container: NSPersistentCloudKitContainer
-
+    
+    // 初期化処理
+    // 実行されるたイミングは、sharedまたはpreviewを呼び出したときに実行される
+    // previewを実行時は、inMemoryがtrueになるので、メモリ上のみにデータが保持される
     init(inMemory: Bool = false) {
+        
+        // NSPersistentContainerのセット（これはアプリ上でユニークとなる）
         container = NSPersistentCloudKitContainer(name: "TIL_CoreData")
+        
         if inMemory {
+            // ?（inMemory=trueの場合のみ）永続ストアの保存するURLパスの指定。
+            // /dev/nullはおそらくメモリ上で保持されるURLパスと思われる
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
+        
+        // 永続ストアの読み込み
+        // completionHandlerは読み込み完了時に実行される。
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -51,6 +69,8 @@ struct PersistenceController {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        
+        //
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
 }
